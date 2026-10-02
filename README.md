@@ -8,7 +8,7 @@
 
 Students check in on the PC they sit at, the PC unlocks, and staff see every lab live.
 
-[Live demo](DEMO_URL) · [Español](README.es.md)
+Live demo coming soon · [Español](README.es.md)
 
 [![Tests](https://github.com/omar0910/labgate/actions/workflows/pruebas.yml/badge.svg)](https://github.com/omar0910/labgate/actions/workflows/pruebas.yml)
 ![Laravel](https://img.shields.io/badge/Laravel-10-FF2D20?logo=laravel&logoColor=white)
@@ -39,7 +39,7 @@ live monitoring and reports.
 
 ## Try it
 
-Open the [live demo](DEMO_URL) and pick a role. One click, no sign-up:
+The live demo is being set up. Meanwhile you can [run it locally](#run-it-locally) and pick a role. One click, no sign-up:
 
 | Role | Demo account | What to look at |
 |---|---|---|

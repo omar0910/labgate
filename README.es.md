@@ -8,7 +8,7 @@
 
 El alumno se registra en la computadora donde se sienta, la computadora se desbloquea y el personal ve cada laboratorio en vivo.
 
-[Demostración en línea](DEMO_URL) · [English](README.md)
+Demostración en línea muy pronto · [English](README.md)
 
 [![Pruebas](https://github.com/omar0910/labgate/actions/workflows/pruebas.yml/badge.svg)](https://github.com/omar0910/labgate/actions/workflows/pruebas.yml)
 ![Laravel](https://img.shields.io/badge/Laravel-10-FF2D20?logo=laravel&logoColor=white)
@@ -39,7 +39,7 @@ persona, una computadora y una hora, y con eso ofrece monitoreo en vivo y report
 
 ## Pruébalo
 
-Abre la [demostración en línea](DEMO_URL) y elige un rol. Un clic, sin registrarse:
+La demostración en línea se está preparando. Mientras tanto puedes [instalarlo en local](#instalación-en-local) y elegir un rol. Un clic, sin registrarse:
 
 | Rol | Cuenta de demostración | Qué ver |
 |---|---|---|
