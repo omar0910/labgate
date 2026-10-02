@@ -1,134 +1,137 @@
 <div align="center">
 
-<img src="public/img/logo.png" width="96" alt="LabGate logo">
+<img src="public/img/logo.png" width="96" alt="Logotipo de LabGate">
 
 # LabGate
 
-**Access control and attendance for university computer labs**
+**Control de acceso y asistencia para laboratorios de cómputo universitarios**
 
-Students check in on the PC they sit at, the PC unlocks, and staff see every lab live.
+El alumno se registra en la computadora donde se sienta, la computadora se desbloquea y el personal ve cada laboratorio en vivo.
 
-**[Live demo](https://64-225-40-57.sslip.io)** · [Español](README.es.md)
+**[Demostración en línea](https://64-225-40-57.sslip.io)** · [English](README.en.md)
 
-[![Tests](https://github.com/omar0910/labgate/actions/workflows/pruebas.yml/badge.svg)](https://github.com/omar0910/labgate/actions/workflows/pruebas.yml)
+[![Pruebas](https://github.com/omar0910/labgate/actions/workflows/pruebas.yml/badge.svg)](https://github.com/omar0910/labgate/actions/workflows/pruebas.yml)
 ![Laravel](https://img.shields.io/badge/Laravel-10-FF2D20?logo=laravel&logoColor=white)
 ![PHP](https://img.shields.io/badge/PHP-8.1+-777BB4?logo=php&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-8-4479A1?logo=mysql&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-7952B3?logo=bootstrap&logoColor=white)
-![PowerShell](https://img.shields.io/badge/PowerShell-lab%20agent-5391FE?logo=powershell&logoColor=white)
+![PowerShell](https://img.shields.io/badge/PowerShell-agente%20de%20laboratorio-5391FE?logo=powershell&logoColor=white)
 
 </div>
 
-![Live lab monitor](docs/capturas/03-monitor-en-vivo.png)
+![Monitor de laboratorios en vivo](docs/capturas/03-monitor-en-vivo.png)
 
-## About
+## Acerca del proyecto
 
-LabGate is the system I designed and built as my professional residency project
-(the final-year industry placement of my Computer Systems Engineering degree).
-It replaced paper sign-in sheets in the computer labs of a public university in
-Mexico, where it runs in production for 4 labs and more than 1,000 user accounts.
+LabGate es el sistema que diseñé y desarrollé como mi proyecto de residencia
+profesional de Ingeniería en Sistemas Computacionales. Sustituyó las listas en
+papel de los laboratorios de cómputo de una universidad pública de México, donde
+está en producción con 4 laboratorios y más de 1,000 cuentas de usuario.
 
-This repository is the **demo edition**: the same code with a fictional
-institution and generated data, so anyone can try it. No real names, student
-records or infrastructure details are included.
+Este repositorio es la **edición de demostración**: el mismo código, con una
+institución ficticia y datos generados, para que cualquiera pueda probarlo. No
+incluye nombres reales, registros de alumnos ni detalles de la infraestructura.
 
-**The problem it solves.** Lab attendance was taken on paper, nobody knew which
-PCs were in use or broken, and there was no way to tell who had used a machine.
-LabGate ties every session to a person, a PC and a time, and turns that into
-live monitoring and reports.
+**El problema que resuelve.** La asistencia a los laboratorios se llevaba en
+papel, nadie sabía qué computadoras estaban en uso o descompuestas, y no había
+forma de saber quién había usado un equipo. LabGate liga cada sesión a una
+persona, una computadora y una hora, y con eso ofrece monitoreo en vivo y reportes.
 
-## Try it
+## Pruébalo
 
-Open the **[live demo](https://64-225-40-57.sslip.io)** and pick a role. One click, no sign-up:
+Abre la **[demostración en línea](https://64-225-40-57.sslip.io)** y elige un rol. Un clic, sin registrarse:
 
-| Role | Demo account | What to look at |
+| Rol | Cuenta de demostración | Qué ver |
 |---|---|---|
-| Administrator | `admin.demo` | Dashboard, live monitor, schedules, reports |
-| Lab manager | `encargado.demo` | Today's classes, fault reports, PC maintenance |
-| Teacher | `profesor.demo` | Today's classes, taking attendance, class statistics |
-| Student | `alumno.demo` | Check-in, free-use sessions, attendance progress |
+| Administrador | `admin.demo` | Panel, monitor en vivo, horarios, reportes |
+| Encargado | `encargado.demo` | Clases del día, reportes de fallas, mantenimiento |
+| Profesor | `profesor.demo` | Clases de hoy, pase de lista, estadísticas de clase |
+| Alumno | `alumno.demo` | Registro de asistencia, uso libre, progreso |
 
-Password for all of them: `demo1234`. The data is fictional and resets every
-night. While the demo is up, a background job simulates the day: students check
-in when a class starts and free-use sessions open and close, so the live monitor
-always has something to show (class hours are Monday to Friday, 7:00–21:00,
-UTC−7).
+La contraseña de todas es `demo1234`. Los datos son ficticios y se reinician cada
+noche. Mientras la demostración está encendida, una tarea simula el día: los
+alumnos se registran al empezar cada clase y las sesiones de uso libre abren y
+cierran, así que el monitor en vivo siempre tiene algo que mostrar (hay clases de
+lunes a viernes, de 7:00 a 21:00, hora UTC−7).
 
-## Features
+## Funciones
 
-**Students**
-- Check in to a class from the lab PC, or with their own laptop.
-- Open and close free-use sessions outside class hours.
-- Report a faulty PC in two clicks.
-- See their attendance per subject, class by class.
+**Alumnos**
+- Registran su asistencia desde la computadora del laboratorio, o con su propia laptop.
+- Abren y cierran sesiones de uso libre fuera del horario de clase.
+- Reportan una computadora con falla en dos clics.
+- Ven su asistencia por materia, clase por clase.
 
-**Teachers**
-- See today's classes and who has checked in.
-- Take or correct attendance, including justified absences.
-- Weekly calendar, history and per-class statistics, exportable to PDF and Excel.
+**Profesores**
+- Ven sus clases de hoy y quién ya se registró.
+- Pasan lista o la corrigen, con faltas justificadas.
+- Calendario semanal, historial y estadísticas por clase, exportables a PDF y Excel.
 
-**Lab managers and administrators**
-- Live monitor: every PC of every lab, who is using it and for what.
-- Schedules with conflict detection (lab and teacher), plus one-off reservations.
-- Smart Excel importers for students, teachers, groups and the full timetable,
-  with a preview step that shows what will change before saving.
-- Help desk for fault reports and preventive maintenance, with a usage counter per PC.
-- Reports per teacher, subject, student, lab and career, in PDF and Excel.
-- Weekly email summaries for teachers and students.
+**Encargados y administradores**
+- Monitor en vivo: cada computadora de cada laboratorio, quién la usa y para qué.
+- Horarios con detección de choques (laboratorio y profesor) y reservas especiales.
+- Importadores inteligentes de Excel para alumnos, profesores, grupos y el
+  horario completo, con una vista previa de lo que va a cambiar antes de guardar.
+- Mesa de ayuda para fallas y mantenimiento preventivo, con contador de usos por computadora.
+- Reportes por docente, materia, alumno, laboratorio y carrera, en PDF y Excel.
+- Resumen semanal por correo para profesores y alumnos.
 
-**Lab PC agent (Windows and macOS)**
-- Keeps the PC locked on the sign-in page until the student checks in on *that* machine.
-- Locks again when the session ends, and shuts the PC down after inactivity.
-- Recovers on its own from network loss, power cuts and attempts to close it.
+**Agente de las computadoras del laboratorio (Windows y macOS)**
+- Mantiene la computadora bloqueada en la pantalla de acceso hasta que el alumno se registra en *esa* máquina.
+- La vuelve a bloquear al terminar la sesión y la apaga tras un tiempo sin uso.
+- Se recupera solo de cortes de red, apagones e intentos de cerrarlo.
 
-## Screenshots
+## Capturas
 
 | | |
 |---|---|
-| ![Sign-in](docs/capturas/01-acceso.png) Sign-in with one-click demo access | ![Administrator dashboard](docs/capturas/02-panel-administrador.png) Administrator dashboard |
-| ![Schedules](docs/capturas/04-horarios.png) Weekly schedule per lab | ![Reports](docs/capturas/05-reportes.png) Reports |
-| ![Teacher](docs/capturas/06-profesor-clases-de-hoy.png) Teacher: today's classes | ![Student](docs/capturas/07-alumno-inicio.png) Student: check-in and free use |
-| ![Student progress](docs/capturas/08-alumno-progreso.png) Student: attendance progress | ![Lab manager](docs/capturas/09-encargado-inicio.png) Lab manager: today |
+| ![Acceso](docs/capturas/01-acceso.png) Acceso, con entrada de un clic a la demostración | ![Panel del administrador](docs/capturas/02-panel-administrador.png) Panel del administrador |
+| ![Horarios](docs/capturas/04-horarios.png) Horario semanal por laboratorio | ![Reportes](docs/capturas/05-reportes.png) Reportes |
+| ![Profesor](docs/capturas/06-profesor-clases-de-hoy.png) Profesor: clases de hoy | ![Alumno](docs/capturas/07-alumno-inicio.png) Alumno: registro y uso libre |
+| ![Progreso del alumno](docs/capturas/08-alumno-progreso.png) Alumno: progreso de asistencia | ![Encargado](docs/capturas/09-encargado-inicio.png) Encargado: el día de hoy |
 
-## Technical highlights
+## Lo más interesante del código
 
-A few parts I would point a reviewer to:
+Las partes que le señalaría a quien revise el proyecto:
 
-- **The lab agent** ([`scripts/centros-computo`](scripts/centros-computo)).
-  A PowerShell script (about 2,400 lines) with an embedded C# low-level keyboard
-  hook. It runs a kiosk browser, polls the server to know whether its PC has an
-  active session, and handles the awkward cases: no network at boot, a power cut
-  mid-class, a student killing the process. There is a Bash port for macOS.
-- **Session rules on the server**
+- **El agente de laboratorio** ([`scripts/centros-computo`](scripts/centros-computo)).
+  Un script de PowerShell (unas 2,400 líneas) con un gancho de teclado de bajo
+  nivel escrito en C#. Abre el navegador en modo quiosco, consulta al servidor si
+  su computadora tiene una sesión activa y resuelve los casos difíciles: sin red
+  al encender, un apagón a media clase, un alumno que mata el proceso. Hay una
+  versión en Bash para macOS.
+- **Las reglas de sesión en el servidor**
   ([`EquipoEstadoController`](app/Http/Controllers/Api/EquipoEstadoController.php),
   [`ReportesDeEquipos`](app/Support/ReportesDeEquipos.php)).
-  A class check-in unlocks the PC only during the class (plus a grace period);
-  a free-use session left open is closed when the PC stops reporting, and
-  reopened if it turns out to be a network glitch rather than a shutdown.
-- **Timetable importer** ([`PlanDeHorarios`](app/Support/PlanDeHorarios.php)).
-  Compares an Excel timetable with what is already stored, matches labs,
-  subjects and teachers by fuzzy name, remembers the user's corrections, and
-  edits existing classes instead of recreating them so attendance is kept.
-- **Absences without a record** ([`FaltasSinRegistro`](app/Support/FaltasSinRegistro.php)).
-  A student who never checked in has no row to count. The system infers the
-  absence only when the class really took place and the student was already
-  enrolled.
-- **Demo mode** ([`app/Demo`](app/Demo), [`ModoDemo`](app/Http/Middleware/ModoDemo.php)).
-  A seeder builds a semester around today's date (about 290 students, 52 weekly
-  class sessions with no clashes, 10,000+ attendance records), a simulator keeps
-  the current day alive, and a middleware blocks the few actions that would
-  break the demo for the next visitor.
+  El registro de una clase desbloquea la computadora sólo mientras dura la clase
+  (más un margen); un uso libre que se quedó abierto se cierra cuando la
+  computadora deja de reportarse, y se reabre si resulta que fue un corte de red
+  y no un apagado.
+- **El importador de horarios** ([`PlanDeHorarios`](app/Support/PlanDeHorarios.php)).
+  Compara el horario de un Excel con lo que ya está guardado, empareja
+  laboratorios, materias y profesores por nombre aproximado, recuerda las
+  correcciones del usuario, y edita las clases que ya existen en lugar de
+  crearlas de nuevo, para conservar sus asistencias.
+- **Las faltas sin registro** ([`FaltasSinRegistro`](app/Support/FaltasSinRegistro.php)).
+  Un alumno que nunca se registró no tiene una fila que contar. El sistema
+  deduce la falta sólo cuando la clase de verdad se impartió y el alumno ya
+  estaba inscrito.
+- **El modo demostración** ([`app/Demo`](app/Demo), [`ModoDemo`](app/Http/Middleware/ModoDemo.php)).
+  Un sembrador arma un semestre alrededor de la fecha de hoy (unos 290 alumnos,
+  52 clases por semana sin choques, más de 10,000 registros de asistencia), un
+  simulador mantiene vivo el día en curso, y un filtro bloquea las pocas
+  acciones que dejarían la demostración inservible para el siguiente visitante.
 
-## Stack
+## Tecnologías
 
-- **Backend:** PHP 8.1+, Laravel 10, MySQL 8, queues and scheduler
-- **Frontend:** Blade, Bootstrap 5.3, Vite, SweetAlert2
-- **Documents:** DomPDF (PDF), Laravel Excel (import and export)
-- **Lab agent:** PowerShell 5.1 with C#, Bash for macOS
+- **Servidor:** PHP 8.1+, Laravel 10, MySQL 8, colas y tareas programadas
+- **Interfaz:** Blade, Bootstrap 5.3, Vite, SweetAlert2
+- **Documentos:** DomPDF (PDF), Laravel Excel (importar y exportar)
+- **Agente de laboratorio:** PowerShell 5.1 con C#, Bash para macOS
 
-## Run it locally
+## Instalación en local
 
-Requirements: PHP 8.1+, Composer, Node 18+, MySQL 8.
+Requisitos: PHP 8.1+, Composer, Node 18+, MySQL 8.
 
 ```bash
 git clone https://github.com/omar0910/labgate.git
@@ -136,66 +139,65 @@ cd labgate
 composer install
 npm install && npm run build
 
-cp .env.example .env        # set DB_DATABASE, DB_USERNAME, DB_PASSWORD and DEMO=true
+cp .env.example .env        # configura DB_DATABASE, DB_USERNAME, DB_PASSWORD y DEMO=true
 php artisan key:generate
 
 php artisan migrate:fresh --seed --seeder=DemoSeeder
 php artisan serve
 ```
 
-Open http://127.0.0.1:8000 and sign in with any of the demo accounts above.
+Abre http://127.0.0.1:8000 y entra con cualquiera de las cuentas de arriba.
 
-To keep the demo "alive" locally, run the scheduler in another terminal:
+Para que la demostración tenga "vida" en local, deja corriendo las tareas
+programadas en otra terminal:
 
 ```bash
 php artisan schedule:work
 ```
 
-Useful commands:
+Comandos útiles:
 
-| Command | What it does |
+| Comando | Qué hace |
 |---|---|
-| `php artisan demo:reiniciar` | Wipes the database and seeds the demo again (only with `DEMO=true`) |
-| `php artisan demo:simular` | Registers what is "happening" right now |
-| `php artisan admin:crear` | Creates an administrator on a real installation |
+| `php artisan demo:reiniciar` | Borra la base y vuelve a sembrar la demostración (sólo con `DEMO=true`) |
+| `php artisan demo:simular` | Registra lo que "está pasando" en este momento |
+| `php artisan admin:crear` | Crea un administrador en una instalación real |
 
-## Tests
+## Pruebas
 
-99 automated tests cover the rules that matter most: who can sign in and where,
-class check-in, free-use sessions, what the server answers to each lab PC
-(including power cuts and network glitches), schedule clashes, maintenance, the
-search helper and the demo mode. They run against a real MySQL database, with
-the clock frozen so results do not depend on when they run.
+99 pruebas automáticas cubren las reglas que más importan: quién entra y a
+dónde, el registro de asistencia, el uso libre, lo que el servidor le contesta a
+cada computadora del laboratorio (incluidos apagones y cortes de red), los
+choques de horario, el mantenimiento, el buscador y el modo demostración. Corren
+contra una base MySQL de verdad y con el reloj fijo, para que el resultado no
+dependa de cuándo se ejecuten.
 
 ```bash
-# once: create the test database (its name must end in _test)
+# una sola vez: crear la base de pruebas (su nombre debe terminar en _test)
 mysql -u root -e "CREATE DATABASE labgate_test CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
 
 php artisan test
 ```
 
-They also run on every push with GitHub Actions
-([workflow](.github/workflows/pruebas.yml)).
+También se ejecutan en cada cambio con GitHub Actions
+([flujo](.github/workflows/pruebas.yml)).
 
-## Project layout
+## Estructura del proyecto
 
 ```
 app/
-  Demo/            Demo data generator and day simulator
-  Http/            Controllers and middleware (roles, demo mode, lab PC detection)
-  Imports/         Excel importers          Exports/   Excel exports
-  Support/         Domain logic: attendance rules, search, timetable planning
-config/marca.php   Name, institution and logos of the installation
-scripts/           Lab PC agent for Windows and macOS, with install guides
-tests/             Feature tests, one file per area of the system
+  Demo/            Generador de datos de demostración y simulador del día
+  Http/            Controladores y filtros (roles, modo demostración, detección de la PC)
+  Imports/         Importadores de Excel     Exports/   Exportaciones a Excel
+  Support/         Lógica del dominio: reglas de asistencia, búsqueda, plan de horarios
+config/marca.php   Nombre, institución y logotipos de la instalación
+scripts/           Agente de las PC para Windows y macOS, con sus guías de instalación
+tests/             Pruebas, un archivo por cada área del sistema
 ```
 
-The interface and the code comments are in Spanish, the language of the people
-who use and maintain the system.
+## Autor
 
-## Author
-
-**César Omar Ramos Martínez** — Computer Systems Engineering student, Mexico.
+**César Omar Ramos Martínez** — estudiante de Ingeniería en Sistemas Computacionales, México.
 [GitHub](https://github.com/omar0910)
 
-© 2026 César Omar Ramos Martínez. Published for portfolio and review purposes.
+© 2026 César Omar Ramos Martínez. Publicado con fines de portafolio y revisión.
