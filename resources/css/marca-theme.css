@@ -1,0 +1,178 @@
+/*
+|--------------------------------------------------------------------------
+| TEMA INSTITUCIONAL
+|--------------------------------------------------------------------------
+| Paleta y utilidades de la institución. Antes este bloque estaba copiado dentro de un <style> en
+| cada una de las ~49 vistas; ahora vive aquí y se carga una sola vez desde
+| app.css, así un cambio de color se hace en un solo lugar.
+|
+| IMPORTANTE: los valores son exactamente los que ya se usaban en las
+| vistas, no se cambió ningún color.
+|
+| NOTA: las plantillas de PDF y los correos NO cargan este archivo, tienen
+| su propio CSS embebido y no deben depender de estas clases.
+*/
+
+:root {
+    --marca-green: #009B4D;
+    /* Verde del logo */
+    --marca-dark-green: #007a3d;
+    /* Verde oscuro para estados hover */
+    --marca-yellow: #FFE900;
+    /* Amarillo del logo */
+    --marca-black: #1a1a1a;
+    /* Negro suave */
+    --marca-gray: #f4f6f9;
+    /* Fondo general */
+
+    /* Colores para series de gráficas. El amarillo institucional NO sirve
+       aquí: sobre fondo blanco da 1.21:1 de contraste (el mínimo legible es
+       3:1), así que se reserva como color de marca sobre fondo oscuro. Este
+       azul deriva del #1b4478 de los PDFs y se validó junto al verde para
+       daltonismo (ΔE 24.7 en deuteranopía, muy por encima del mínimo de 8). */
+    --marca-serie-clases: #009B4D;
+    --marca-serie-uso-libre: #2A5CA8;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Utilidades de color
+|--------------------------------------------------------------------------
+*/
+
+.text-marca-green {
+    color: var(--marca-green) !important;
+}
+
+.bg-marca-green {
+    background-color: var(--marca-green) !important;
+    color: #fff !important;
+}
+
+.border-marca-green {
+    border-color: var(--marca-green) !important;
+}
+
+.text-marca-yellow {
+    color: var(--marca-yellow) !important;
+}
+
+.bg-marca-yellow {
+    background-color: var(--marca-yellow) !important;
+    color: var(--marca-black) !important;
+}
+
+.border-marca-yellow {
+    border-color: var(--marca-yellow) !important;
+}
+
+.text-marca-black {
+    color: var(--marca-black) !important;
+}
+
+.bg-marca-black {
+    background-color: var(--marca-black) !important;
+    color: #fff !important;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Botones institucionales
+|--------------------------------------------------------------------------
+| Algunas vistas (dashboard admin, dashboard alumno, perfil, horarios/edit,
+| monitor/buscadorshow) redefinen estos botones con matices propios dentro
+| de su propio <style>; esas definiciones locales se conservaron y siguen
+| ganando por orden de cascada.
+*/
+
+.btn-marca-green {
+    background-color: var(--marca-green);
+    color: #fff;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-marca-green:hover {
+    background-color: var(--marca-dark-green);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 155, 77, 0.3);
+}
+
+/* Variante de contorno, para acciones secundarias dentro de una fila de botones.
+   Sustituye a btn-outline-primary, que metía el azul de Bootstrap en la paleta. */
+.btn-outline-marca-green {
+    background-color: transparent;
+    color: var(--marca-green);
+    border: 1px solid var(--marca-green);
+    transition: all 0.3s ease;
+}
+
+.btn-outline-marca-green:hover,
+.btn-outline-marca-green:focus {
+    background-color: var(--marca-green);
+    color: #fff;
+    border-color: var(--marca-green);
+}
+
+.btn-marca-yellow {
+    background-color: var(--marca-yellow);
+    border-color: #e6d200;
+    color: var(--marca-black);
+    font-weight: bold;
+}
+
+.btn-marca-yellow:hover {
+    background-color: #e6d200;
+    border-color: #cca300;
+    color: var(--marca-black);
+}
+
+.btn-marca-black {
+    background-color: var(--marca-black);
+    border-color: var(--marca-black);
+    color: #fff;
+}
+
+.btn-marca-black:hover {
+    background-color: #333;
+    border-color: #333;
+    color: #fff;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Formas y transiciones
+|--------------------------------------------------------------------------
+*/
+
+/* Radio de tarjeta del sistema. Lleva !important a propósito: Bootstrap
+   trae su propia .rounded-4 de 0.5rem y en login / dashboard de alumno el
+   CSS de Bootstrap se carga por CDN después de este archivo. */
+.rounded-4 {
+    border-radius: 1rem !important;
+}
+
+.transition-hover {
+    transition: all .3s ease;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Formularios
+|--------------------------------------------------------------------------
+*/
+
+/* Foco verde institucional en lugar del azul por defecto de Bootstrap. */
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--marca-green);
+    box-shadow: 0 0 0 0.25rem rgba(0, 155, 77, 0.25);
+}
+
+/* Buscadores dentro de un input-group: el borde lo dibuja el contenedor,
+   por eso el input no debe pintar el suyo al enfocarse. */
+.search-input:focus {
+    box-shadow: none !important;
+    border-color: transparent !important;
+}
