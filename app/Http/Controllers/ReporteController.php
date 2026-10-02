@@ -447,18 +447,26 @@ class ReporteController extends Controller
             ->get();
 
         $asistenciasDocentes = \App\Models\AsistenciaProfesor::whereIn('horario_id', $clases->pluck('id'))->get();
+        $registrosDelProfesor = $asistenciasDocentes->groupBy('horario_id');
 
-        // --- NUEVO: Traemos a los alumnos para el Fallback ---
-        $asistenciasAlumnos = \App\Models\Asistencia::where('tipo', 'Clase')
+        // De los alumnos sólo hacen falta las fechas en que hubo registro, clase por
+        // clase: sirven para saber qué clases se dieron aunque el profesor no las
+        // anotara. Antes se cargaban todas las asistencias del semestre y se
+        // recorrían enteras por cada clase; con miles de registros eran millones de
+        // vueltas y el reporte tardaba varios segundos.
+        $fechasConAlumnos = \App\Models\Asistencia::where('tipo', 'Clase')
             ->whereIn('horario_id', $clases->pluck('id'))
             ->whereBetween('fecha', [$semestre->fecha_inicio, $semestre->fecha_fin])
-            ->get();
+            ->select('horario_id', 'fecha')
+            ->distinct()
+            ->get()
+            ->groupBy('horario_id');
 
         $diasInhabilesData = \App\Models\DiaInhabil::where('semestre_id', $semestre->id)->get();
         $diasInhabiles = $diasInhabilesData->pluck('fecha')->toArray();
         $motivosInhabiles = $diasInhabilesData->pluck('motivo', 'fecha')->toArray();
 
-        $reporteDocentesData = $clases->groupBy('user_id')->map(function ($horarios) use ($semestre, $asistenciasDocentes, $asistenciasAlumnos, $diasInhabiles, $motivosInhabiles) {
+        $reporteDocentesData = $clases->groupBy('user_id')->map(function ($horarios) use ($semestre, $registrosDelProfesor, $fechasConAlumnos, $diasInhabiles, $motivosInhabiles) {
             $profesor = $horarios->first()->user;
             $materiasUnicas = $horarios->pluck('materia.nombre_materia')->unique();
 
@@ -472,22 +480,22 @@ class ReporteController extends Controller
             $por_registrar_total = 0;
 
             foreach ($horarios as $horario) {
+                // Lo registrado en esta clase: por el profesor, y los días con alumnos
+                $asistProf = $registrosDelProfesor->get($horario->id, collect());
+                $asistAlum = $fechasConAlumnos->get($horario->id, collect());
+
                 // Clases esperadas desde que la clase existe en el sistema
                 $esperadas = self::clasesEsperadas(
                     $horario,
                     $semestre,
                     $diasInhabiles,
-                    $asistenciasDocentes->where('horario_id', $horario->id)->pluck('fecha')
-                        ->merge($asistenciasAlumnos->where('horario_id', $horario->id)->pluck('fecha'))
+                    $asistProf->pluck('fecha')->merge($asistAlum->pluck('fecha'))
                 );
                 $esperadas_total += $esperadas['total'];
                 $esperadas_hoy += $esperadas['hoy'];
                 $fechasFestivasMateria = $esperadas['festivas'];
 
                 // CÁLCULO DE ASISTENCIAS CON FALLBACK
-                $asistProf = $asistenciasDocentes->where('horario_id', $horario->id);
-                $asistAlum = $asistenciasAlumnos->where('horario_id', $horario->id);
-
                 $imp = $asistProf->where('estado', 'asistio')->count();
                 $fal = $asistProf->where('estado', 'falta')->count();
                 $jus = $asistProf->where('estado', 'justificado')->count();
@@ -1068,10 +1076,15 @@ class ReporteController extends Controller
                 })
                 ->get();
 
-            $reporteMaterias = $horarios->map(function ($horario) use ($semestre, $asistenciasAlumnos, $asistenciasProfesores, $fechaInicio, $fechaFin, $diasInhabiles, $motivosInhabiles) {
+            // Agrupadas una sola vez por clase. Antes cada clase recorría la lista
+            // completa de asistencias para quedarse con las suyas.
+            $alumnosPorClase = $asistenciasAlumnos->groupBy('horario_id');
+            $profesorPorClase = $asistenciasProfesores->groupBy('horario_id');
 
-                $asistProf = $asistenciasProfesores->where('horario_id', $horario->id);
-                $asistAlum = $asistenciasAlumnos->where('horario_id', $horario->id);
+            $reporteMaterias = $horarios->map(function ($horario) use ($semestre, $alumnosPorClase, $profesorPorClase, $fechaInicio, $fechaFin, $diasInhabiles, $motivosInhabiles) {
+
+                $asistProf = $profesorPorClase->get($horario->id, collect());
+                $asistAlum = $alumnosPorClase->get($horario->id, collect());
 
                 // --- CÁLCULO DE CLASES PROGRAMADAS (TOTAL VS HASTA HOY) ---
                 // Dentro del rango del reporte, y desde que la clase existe en el sistema.
